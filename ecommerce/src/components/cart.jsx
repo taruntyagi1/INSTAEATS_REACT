@@ -9,7 +9,8 @@ export default function Cart() {
     const base_url  = "http://127.0.0.1:8000"
     const navigate = useNavigate();
     const [product,setProduct] = useState([])
-    const [totalPrice,settotalPrice] = useState(0.0)
+    const [totalPrice,settotalPrice] = useState(0)
+    const [price,setPrice] = useState(0)
     
     const backshopping = ()=>{
         navigate('/')
@@ -37,16 +38,15 @@ export default function Cart() {
           .then(res => {
             setCart(res.data.cart_items);
             settotalPrice(res.data.total_price)
+            
             console.log('price', totalPrice)
            
             console.log('cart',cart)
             
             
             console.log('res',res.data)
-            const totalpriceindex = totalPrice.findIndex(c => c.userID === userID)
-            const updatedprice = [...totalPrice]
-           updatedprice[totalpriceindex].total_price = res.data.cart_items
-           settotalPrice(updatedprice)
+            
+           
           })
           .catch(error => {
             console.error(error);
@@ -145,7 +145,7 @@ export default function Cart() {
                                                         <div className="col-md-3 col-lg-3 col-xl-2 d-flex">
                                                             <button className="btn btn-link px-2">
                                                                 
-                                                                <FiPlus onClick={()=> handleadd(cart.product.id)}/>
+                                                                <FiPlus onClick={()=> handleadd(cart.product.id,setPrice(cart.price))}/>
                                                             </button>
                                                             
                                                            

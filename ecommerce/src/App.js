@@ -11,6 +11,7 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import './index.css'
 import 'bootstrap/dist/css/bootstrap.min.css';
+
 // import { Carousel } from 'react-responsive-carousel';
 
 function App() {
@@ -74,7 +75,7 @@ function App() {
         <Slider {...settings} key = {product.id}>
           {product.map(product =>(
 
-          <Product id = {product.id} image = {product.image} title = {product.title} price = {product.price} />
+          <Product id = {product.id} image = {product.image} title = {product.title} price = {product.price} product ={product} />
           ))}
         </Slider>
       </div>

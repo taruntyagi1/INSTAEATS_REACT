@@ -29,7 +29,7 @@ class AddToCart(APIView):
             user = User.objects.get(id=user_id)
             price = request.data.get('price')
             cart, created = Cart.objects.get_or_create(user=user)
-            cart_item, created = CartItem.objects.get_or_create(product=product, price=price, cart=cart, user=user)
+            cart_item, created = CartItem.objects.get_or_create(product=product, cart=cart, user=user)
             if created:
                 cart_item.quantity = 1
                 cart_item.price = cart_item.product.price * cart_item.quantity
@@ -67,7 +67,7 @@ class LoginView(APIView):
         if serializer.is_valid():
             email = serializer.data['email']
             password = serializer.data['password']
-            user = authenticate(email=email, password=password)
+            user = authenticate(email=email, password=password) 
 
             if user:
                 
@@ -103,7 +103,7 @@ class CartItemView(APIView):
           for item in cartitem:
               total_price += item.price
           serializer = CartItemSerializer(cartitem,many = True).data
-          return Response({'cart_items': serializer, 'total_price': total_price},status=status.HTTP_200_OK)
+          return Response({'cart_items': serializer, 'total_price': total_price,'price' : item.price},status=status.HTTP_200_OK)
 @csrf_exempt  
 @api_view(['POST',])
 def increase_cart(request):
@@ -117,7 +117,8 @@ def increase_cart(request):
      cart_item.price = cart_item.product.price * cart_item.quantity
      cart_item.save()
      return JsonResponse({
-          'message' : cart_item.quantity
+          'message' : cart_item.quantity,
+          'price' : cart_item.price
      })
 
 

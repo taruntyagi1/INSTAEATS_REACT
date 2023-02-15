@@ -5,6 +5,10 @@ import './index.css'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Card, Button } from "react-bootstrap";
 import { useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { Add } from './action';
+import { useSelector } from 'react-redux';
+
 
 
 
@@ -14,6 +18,7 @@ import { useNavigate } from 'react-router-dom';
 
 export default function Product(props) {
   // const [user_id,setUserId] = useState('')
+  const dispatch = useDispatch();
   const data1 = JSON.parse(localStorage.getItem("data"));
   const user_id = data1.id
   console.log(data1)
@@ -21,6 +26,7 @@ export default function Product(props) {
   
   const price = props.price
   console.log(price)
+  
 
   // useEffect(()=>{
   //   if(data1){
@@ -39,6 +45,9 @@ export default function Product(props) {
     console.log(response.data)
     
     
+  }
+  const add_cart = (e)=>{
+    dispatch({type: 'add', payload : {cart:e}})
   }
   
   
@@ -60,6 +69,7 @@ export default function Product(props) {
             <p>{props.price}</p>
             <Button onClick={() => addToCart(navigate('/cart'))}  variant="primary">Buy Now</Button>
             <Button onClick={addToCart} variant="secondary">Add to cart</Button>
+            <Button onClick={() => add_cart(props.product)} variant="secondary">Add to cart</Button>
           </div>
         </Card.Body>
       </Card>
