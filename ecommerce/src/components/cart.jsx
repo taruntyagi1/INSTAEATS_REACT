@@ -30,7 +30,12 @@ export default function Cart() {
 
     useEffect(() => {
       const data = JSON.parse(localStorage.getItem('data'))
-      setuserId(data.id)
+      if(data){
+        setuserId(data.id)
+      }else{
+        setuserId('')
+      }
+      
       if (userID) {
         axios.post('http://127.0.0.1:8000/cart_view/', {
             userID
@@ -60,14 +65,14 @@ export default function Cart() {
 
     
 
-    const handleproduct = async()=>{
-        const response = await axios.get('http://127.0.0.1:8000/product/')
-        setProduct(response.data)
-        console.log('product' , response.data)
-    }
-    useEffect(()=>{
-        handleproduct();
-    },[])
+    // const handleproduct = async()=>{
+    //     const response = await axios.get('http://127.0.0.1:8000/product/')
+    //     setProduct(response.data)
+    //     console.log('product' , response.data)
+    // }
+    // useEffect(()=>{
+    //     handleproduct();
+    // },[])
     // const product_id = product.id
 
     

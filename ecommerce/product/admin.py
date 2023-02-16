@@ -19,10 +19,16 @@ class customcart(admin.ModelAdmin):
 
 class customItems(admin.ModelAdmin):
     list_display = ['user','product','variant','cart']
+
+
+class custom_address(admin.ModelAdmin):
+    list_display = ['user','address','default_address']
+    ordering =('id',)
 admin.site.register(Category,custom_category)
 admin.site.register(Product,custom_product)
 admin.site.register(Variant,custom_variant)
 admin.site.register(Cart,customcart)
 admin.site.register(CartItem,customItems)
+admin.site.register(UserAddress,custom_address)
 
 

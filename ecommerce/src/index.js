@@ -9,12 +9,18 @@ import Cart from './components/cart';
 import LoginForm from './components/loginForm';
 import { Provider } from 'react-redux';
 import store from './components/store';
+import { persistor } from './components/store';
+import { PersistGate } from 'redux-persist/integration/react';
+import Dashboard from './components/dashboard';
+import Register from './components/register';
+
 
 
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <Provider store={store}>
+    <PersistGate loading={null} persistor={persistor}>
   <React.StrictMode>
     <Router>
       <Routes>
@@ -22,9 +28,12 @@ root.render(
         <Route path='/login' element={<Login />} />
         <Route path='/cart' element={<Cart />} />
         <Route path='/login_form' element={<LoginForm />} />
+        <Route path='/dashboard' element={<Dashboard />} />
+        <Route path='/register' element={<Register />} />
       </Routes>
     </Router>
   </React.StrictMode>
+  </PersistGate>
 </Provider>
 );
 

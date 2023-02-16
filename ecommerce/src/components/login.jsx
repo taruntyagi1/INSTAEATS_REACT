@@ -29,7 +29,7 @@ export default function Login() {
         // console.log(response.data)
         const data = await response.data
         // console.log(data)
-        const expiresIn = 3900
+        const expiresIn = 3600
         
         localStorage.setItem('expire' , expiresIn)
         localStorage.setItem('data', JSON.stringify(data));

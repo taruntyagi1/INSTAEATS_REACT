@@ -11,5 +11,6 @@ urlpatterns = [
     path('cart_view/',CartItemView.as_view()),
     path('increase/',views.increase_cart,name='increase'),
     path('count/',CountView.as_view(),name='count'),
-    path('decrease/',views.decrease_cart,name='decrease')
+    path('decrease/',views.decrease_cart,name='decrease'),
+    path('register/',User_regsiter.as_view())
 ]

@@ -4,7 +4,9 @@ const initialstate = {
     
 }
 const userstate = {
-    user:[]
+    user:[
+        
+    ]
 }
 
 
@@ -33,9 +35,9 @@ export const loginreducer = (state = userstate,action)=>{
                 ...state,
                 user:[...state.user,action.payload]
             }
-        case "login_failure":
+        case "clear_data":
             return{
-                ...state,
+                ...state,user : []
             }
         default:
             return state

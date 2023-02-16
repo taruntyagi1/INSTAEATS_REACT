@@ -95,3 +95,16 @@ class CartItem(models.Model):
     quantity = models.IntegerField(default=1, null=True, blank=True)
 
     
+
+
+class UserAddress(models.Model):
+    user = models.ForeignKey(User,on_delete=models.SET_NULL,null = True)
+    address = models.TextField(null = True,blank = True)
+    default_address = models.BooleanField(default=False)
+
+    class Meta:
+        verbose_name_plural = 'User Address'
+
+
+    def __str__(self):
+        return self.user.username

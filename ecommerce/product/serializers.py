@@ -1,5 +1,6 @@
 from rest_framework import serializers
 from product.models import *
+from accounts.models import *
 
 class CategorySerializer(serializers.ModelSerializer):
 
@@ -21,7 +22,15 @@ class VariantSerializer(serializers.ModelSerializer):
         )
 
     
-    
+
+
+class AdressSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = UserAddress
+        fields = (
+            'user','address','default'
+        )
 
 
         
@@ -66,3 +75,11 @@ class CartItemSerializer(serializers.ModelSerializer):
             
         )
     
+
+class Userserializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = User
+        fields = (
+            'first_name','last_name','email','username','phone_number','password'
+        )

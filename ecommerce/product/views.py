@@ -13,6 +13,7 @@ from rest_framework.permissions import AllowAny, IsAuthenticated
 from django.http import JsonResponse
 from rest_framework.decorators import api_view
 from django.db import transaction
+from django.contrib.auth.hashers import make_password
 # Create your views here.
 
 
@@ -23,7 +24,7 @@ class ProductView(ListAPIView):
 
 class AddToCart(APIView):
     def post(self, request, product_id):
-        with transaction.atomic():
+        
             product = Product.objects.get(id=product_id)
             user_id = request.data.get('user_id')
             user = User.objects.get(id=user_id)
@@ -35,12 +36,17 @@ class AddToCart(APIView):
                 cart_item.price = cart_item.product.price * cart_item.quantity
                 cart_item.save()
                 return JsonResponse({
-                        'message' : 'added to cart'
+                        'message' : 'added to cart',
+                       
                     })
             else:
                 return JsonResponse({
                         'message' : 'already added to cart'
                     })
+
+            
+
+            
             
                 
 
@@ -157,3 +163,37 @@ class CountView(APIView):
         return JsonResponse({'message': count})
 
      
+
+
+class User_address(APIView):
+
+    def get(self,request):
+        address = UserAddress.objects.all()
+        serializer = AdressSerializer(address,many = True).data
+        return Response(serializer,status=status.HTTP_200_OK)
+
+    
+
+
+class User_regsiter(APIView):
+
+
+    def get(self,reuqest):
+        user =User.objects.all()
+        serializer = Userserializer(user,many = True).data
+        return Response(serializer,status=status.HTTP_200_OK)
+
+
+    def post(self,request):
+        first_name = request.data.get('first_name')
+        last_name = request.data.get('last_name')
+        email = request.data.get('email')
+        username = request.data.get('username')
+        phone = request.data.get('phone_number')
+        password = request.data.get('password')
+        # repeat_password = request.data.get('repeat_password')
+        password = make_password(password)
+        user = User.objects.create(first_name = first_name,last_name = last_name,email = email,username = username ,phone_number = phone,password = password)
+        serialzier = Userserializer(user).data
+        return Response(serialzier,status=status.HTTP_200_OK)
+            

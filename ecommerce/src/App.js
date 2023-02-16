@@ -73,9 +73,9 @@ function App() {
       <div>
         <h2> Responsive Product Carousel</h2>
         <Slider {...settings} key = {product.id}>
-          {product.map(product =>(
+          {product.map((product,index) =>(
 
-          <Product id = {product.id} image = {product.image} title = {product.title} price = {product.price} product ={product} />
+          <Product id = {product.id} key = {index} image = {product.image} title = {product.title} price = {product.price} product ={product} />
           ))}
         </Slider>
       </div>
