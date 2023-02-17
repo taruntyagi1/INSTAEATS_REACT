@@ -29,7 +29,7 @@ class AdressSerializer(serializers.ModelSerializer):
     class Meta:
         model = UserAddress
         fields = (
-            'user','address','default'
+            'user','address','default_address'
         )
 
 

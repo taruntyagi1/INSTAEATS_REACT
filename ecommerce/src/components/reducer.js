@@ -1,4 +1,4 @@
-import { CombinedState, combineReducers } from "redux"
+import { combineReducers } from "redux"
 const initialstate = {
     cart : []
     

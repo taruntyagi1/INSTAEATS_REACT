@@ -456,3 +456,81 @@ width: 70px;
     /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
     background: linear-gradient(to right, rgba(132, 250, 176, 1), rgba(143, 211, 244, 1))
   }
+
+.user_dashboard{
+  width: 0px;
+  margin: 0px;
+  padding: 0px;
+  display: bloxk;
+  display: block;
+  height: 0px;
+
+}
+  #user_card{
+    width: 200px !important;
+    margin-top: 100px;
+    margin-left: 20px;
+    border: 1px solid rgb(163, 161, 161);
+  }
+  #user_card .card_title{
+    text-align: center;
+  }
+
+  #user_card .user_profile a{
+    font-weight:  600;
+    line-height: 20px;
+    margin-top: 20px;
+    text-align: center;
+    text-decoration: none;
+    color: black;
+  }
+  #user_card .user_profile{
+    text-align: center;
+  }
+  #user_card .user_orders  a{
+    font-weight:  600;
+    text-align: center;
+    text-decoration: none;
+    color: black;
+  }
+  #user_card .user_orders{
+    text-align: center;
+  }
+  #user_card .user_address a{
+    font-weight: 600;
+    text-align: center;
+    text-decoration: none;
+    color: black;
+  }
+  #user_card .user_address{
+    text-align: center;
+  }
+  #user_card span .line{
+    display: block;
+    width: 50% !important;
+    height: 2px !important;
+    border-radius: 5px !important;
+    margin: 20px 0 25px !important;
+    background: black;
+    margin-left: 43px !important;
+}
+
+#order_sidebar{
+  
+  margin-left: 300px !important;
+  border: 1px solid;
+  margin-top: 0px !important;
+  width: 160px !important;
+  height: 130px;
+}
+
+#user_address{
+  margin-left: 400px !important;
+  gap: 20px;
+}
+
+#address_card{
+  position: relative;
+  
+}
+  

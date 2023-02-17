@@ -4,12 +4,12 @@ import axios from 'axios';
 import './index.css'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Card, Button } from "react-bootstrap";
-import { useNavigate, useSearchParams } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { Add } from './action';
-import { useSelector } from 'react-redux';
+
 import { useEffect,useState } from 'react';
-import store from './store';
+
 
 
 
@@ -21,11 +21,13 @@ import store from './store';
 export default function Product(props) {
   const [user_id,setUserId] = useState('')
   const dispatch = useDispatch();
+  const [loggedIN,setLoggedIN] = useState(false)
   
   
 
   
   const data1 = JSON.parse(localStorage.getItem('data'))
+ 
   
   
 
@@ -63,19 +65,50 @@ export default function Product(props) {
     } else{
       setUserId('')
     }
+    if(user_id){
+      setLoggedIN(true)
+    }else{
+      setLoggedIN(false)
+    }
 
-  },[data1])
+  },[data1,loggedIN])
   
   const addToCart = async()=>{
+    if(loggedIN){
+
+      const response = await axios.post(`http://127.0.0.1:8000/add/${props.id}/`,{
+        user_id,price
+      })
+      console.log(response.data.cart_item)
+     
+  
+        dispatch(Add(response.data))
+      
+      }else{
+        let sessionCart = JSON.parse(sessionStorage.getItem('cart')) || {}
+
+    if(sessionCart[props.id]){
+      sessionCart[props.id]["quantity"] += 1;
+    }else{
+      sessionCart[props.id] = {
+        quantity: 1,
+        price: price,
+        image : props.image,
+        title : props.title
+      
+      };
+    }
+    sessionStorage.setItem("cart", JSON.stringify(sessionCart));
+      }
+    }
     
-    const response = await axios.post(`http://127.0.0.1:8000/add/${props.id}/`,{
-      user_id,price
-    })
-    console.log(response.data.cart_item)
-    dispatch(Add(response.data))
     
     
-  }
+  
+
+  
+
+   
   
 
  

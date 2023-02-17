@@ -13,6 +13,7 @@ import { persistor } from './components/store';
 import { PersistGate } from 'redux-persist/integration/react';
 import Dashboard from './components/dashboard';
 import Register from './components/register';
+import Address from './components/address';
 
 
 
@@ -30,6 +31,7 @@ root.render(
         <Route path='/login_form' element={<LoginForm />} />
         <Route path='/dashboard' element={<Dashboard />} />
         <Route path='/register' element={<Register />} />
+        <Route path='/address' element={<Address />} />
       </Routes>
     </Router>
   </React.StrictMode>

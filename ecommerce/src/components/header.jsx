@@ -10,9 +10,7 @@ import { useSelector } from "react-redux";
 export default function Header(){
     const [count,setCount] = useState(0);
     const [userID,setUserID] = useState()
-    const getData = useSelector((state) =>state.payload)
-    
-  console.log(getData)
+   
     const navigate = useNavigate();
     const [authstatus,setAuthStatus] = useState('logged out')
     const handlelogout = ()=>{
@@ -46,17 +44,15 @@ export default function Header(){
 
     
     const cartcount = async()=>{
-        const response = await axios.post('http://127.0.0.1:8000/count/',{
-            userID
-        })
-        console.log(response.data)
-        try{
-           
-            setCount(response.data.message)
-            
-        }catch(error){
-            console.log('error' , error)
+        if(userID){
 
+            const response = await axios.post('http://127.0.0.1:8000/count/',{
+                userID
+            })
+            console.log(response.data)
+            setCount(response.data.message)
+        }else{
+            console.log('user id is not found')
         }
         
 

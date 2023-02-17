@@ -8,9 +8,9 @@ import { FiPlus,FiMinus } from 'react-icons/fi'
 export default function Cart() {
     const base_url  = "http://127.0.0.1:8000"
     const navigate = useNavigate();
-    const [product,setProduct] = useState([])
+    
     const [totalPrice,settotalPrice] = useState(0)
-    const [price,setPrice] = useState(0)
+    
     
     const backshopping = ()=>{
         navigate('/')
@@ -58,8 +58,8 @@ export default function Cart() {
           });
       }
       
-
-    }, [userID]);
+//eslint-disable-next-line
+    }, [userID,totalPrice]);
     
     
 
@@ -150,7 +150,7 @@ export default function Cart() {
                                                         <div className="col-md-3 col-lg-3 col-xl-2 d-flex">
                                                             <button className="btn btn-link px-2">
                                                                 
-                                                                <FiPlus onClick={()=> handleadd(cart.product.id,setPrice(cart.price))}/>
+                                                                <FiPlus onClick={()=> handleadd(cart.product.id)}/>
                                                             </button>
                                                             
                                                            
@@ -173,7 +173,7 @@ export default function Cart() {
                                                             <h6 className="mb-0">{cart.price}</h6>
                                                         </div>
                                                         <div className="col-md-1 col-lg-1 col-xl-1 text-end">
-                                                            <a href="#!" class="text-muted"><i class="fas fa-times"></i></a>
+                                                            <a href="#!" className="text-muted"><i className="fas fa-times"></i></a>
                                                         </div>
                                                     </div>
                                                     ))}
@@ -227,7 +227,7 @@ export default function Cart() {
                                                                             <h5>{totalPrice}</h5>
                                                                         </div>
 
-                                                                        <button type="button" class="btn btn-dark btn-block btn-lg"
+                                                                        <button type="button" className="btn btn-dark btn-block btn-lg"
                                                                             data-mdb-ripple-color="dark">Register</button>
 
                                                                     </div>

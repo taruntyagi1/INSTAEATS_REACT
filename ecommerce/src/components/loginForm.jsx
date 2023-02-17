@@ -2,17 +2,17 @@ import React from 'react'
 import { useState } from 'react'
 import { Card } from 'react-bootstrap'
 import './index.css'
-import { useDispatch,useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import axios from 'axios'
-import { type } from '@testing-library/user-event/dist/type'
+
 import { Login_user } from './action'
-import { connect } from 'react-redux';
+
 
 
 
 export default function LoginForm() {
     const dispatch = useDispatch();
-    const loginerror = useSelector((state) => state.loginError)
+    
     const [email,setEmail] = useState('')
     const [password,setPassword] = useState('')
 
@@ -39,14 +39,14 @@ export default function LoginForm() {
         
 
     }
-    const user_data = useSelector(state => state.user.user);
-    console.log(user_data)
-    const data = user_data.map((user_data)=>{
-        const {id} = user_data
-        console.log("id", id)
-    })
+    // const user_data = useSelector(state => state.user.user);
+    // console.log(user_data)
+    // const data = user_data.map((user_data)=>{
+    //     const {id} = user_data
+    //     console.log("id", id)
+    // })
     
-        localStorage.setItem('user_data' , JSON.stringify(user_data))
+    //     localStorage.setItem('user_data' , JSON.stringify(user_data))
    
     
     

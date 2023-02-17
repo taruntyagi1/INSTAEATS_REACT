@@ -1,109 +1,118 @@
-import React, { useState,useEffect } from 'react'
+import React, { useState } from 'react'
 import Header from './header'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './index.css'
 import axios from 'axios';
-import { 
-    MDBBtn, 
-    MDBContainer, 
-    MDBRow, 
-    MDBCol, 
-    MDBCard, 
-    MDBCardBody, 
-    MDBCardImage, 
-    MDBInput, 
-    MDBIcon, 
-    MDBCheckbox 
-  } 
-  from 'mdb-react-ui-kit';
+import { useNavigate } from 'react-router-dom';
+
 
 export default function Register() {
+  const navigate = useNavigate();
+
+  
     const style1  = {
         backgroundColor : '#eee',
         borderRadius : "25px"
 
     }
-    const [regsiterForm,setRegisterForm] = useState({
-        'first_name' : '',
-        'last_name' : '',
-        'email' : '',
-        'username' : '',
-        'phone_number' : '',
-        'password' : '',
+    const [registerForm,setRegisterForm] = useState({
+        first_name : '',
+        last_name : '',
+        email : '',
+        username : '',
+        phone_number : '',
+        password : '',
+        repeat_password : '',
        
     })
     
     const handlechange = (event)=>{
-       setRegisterForm({...regsiterForm,[event.target.name] : event.target.value})
+       setRegisterForm({...registerForm,[event.target.name] : event.target.value})
     }
 
-    const handlesubmit = async(e)=>{
-        e.preventDefault();
-        alert('submit')
-        const response = await axios.post('http://127.0.0.1:8000/register/',{
-            regsiterForm
-        })
-        const data = await response.data
-        console.log(data)
-    }
+   
+
+    const handleSubmit = async (e) => {
+      e.preventDefault();
+     
+      try {
+        
+        const response = await axios.post('http://127.0.0.1:8000/register/', registerForm);
+        const data = response.data;
+        console.log(data);
+        alert('Registration successful!');
+        navigate('/login')
+      } catch (error) {
+        console.log(error.response.data);
+        alert('Registration failed. Please try again.');
+      }
+    };
   return (
     <>
     <Header/>
-    <section class="vh-100" style={{...style1}}>
-  <div class="container h-100">
-    <div class="row d-flex justify-content-center align-items-center h-100">
-      <div class="col-lg-12 col-xl-11">
-        <div class="card text-black" style={{...style1}}>
-          <div class="card-body p-md-5">
-            <div class="row justify-content-center">
-              <div class="col-md-10 col-lg-6 col-xl-5 order-2 order-lg-1">
+    <section className="vh-100" style={{...style1}}>
+  <div className="container h-100">
+    <div className="row d-flex justify-content-center align-items-center h-100">
+      <div className="col-lg-12 col-xl-11">
+        <div className="card text-black" style={{...style1}}>
+          <div className="card-body p-md-5">
+            <div className="row justify-content-center">
+              <div className="col-md-10 col-lg-6 col-xl-5 order-2 order-lg-1">
 
-                <p class="text-center h1 fw-bold mb-5 mx-1 mx-md-4 mt-4">Sign up</p>
+                <p className="text-center h1 fw-bold mb-5 mx-1 mx-md-4 mt-4">Sign up</p>
 
-                <form class="mx-1 mx-md-4">
+                <form className="mx-1 mx-md-4" onSubmit={handleSubmit}>
 
-                  <div class="d-flex flex-row align-items-center mb-4">
-                    <i class="fas fa-user fa-lg me-3 fa-fw"></i>
-                    <div class="form-outline flex-fill mb-0">
-                      <input type="email" id="form3Example1c1" value={regsiterForm.first_name} name='first_name' onChange={handlechange} class="form-control" />
-                      <label class="form-label" htmlFor="first_name">Your Name</label>
+                  <div className="d-flex flex-row align-items-center mb-4">
+                    <i className="fas fa-user fa-lg me-3 fa-fw"></i>
+                    <div className="form-outline flex-fill mb-0">
+                      <input type="email" id="form3Example1c1" value={registerForm.first_name} name='first_name' onChange={handlechange} className="form-control" />
+                      <label className="form-label" htmlFor="first_name">Your Name</label>
                     </div>
                   </div>
-                  <div class="d-flex flex-row align-items-center mb-4">
-                    <i class="fas fa-user fa-lg me-3 fa-fw"></i>
-                    <div class="form-outline flex-fill mb-0">
-                      <input type="email" id="form3Example1c2" value={regsiterForm.last_name} name='last_name' onChange={handlechange} class="form-control" />
-                      <label class="form-label" htmlFor="last_name">Last Name</label>
-                    </div>
-                  </div>
-
-                  <div class="d-flex flex-row align-items-center mb-4">
-                    <i class="fas fa-envelope fa-lg me-3 fa-fw"></i>
-                    <div class="form-outline flex-fill mb-0">
-                      <input type="email" id="form3Example3c3" value={regsiterForm.email} name='email' class="form-control" onChange={handlechange}/>
-                      <label class="form-label" htmlFor="email">Your Email</label>
-                    </div>
-                  </div>
-                  <div class="d-flex flex-row align-items-center mb-4">
-                    <i class="fas fa-envelope fa-lg me-3 fa-fw"></i>
-                    <div class="form-outline flex-fill mb-0">
-                      <input type="email" id="form3Example3c4" value={regsiterForm.username} name='username' class="form-control" onChange={handlechange}/>
-                      <label class="form-label" htmlFor="username">Your username</label>
-                    </div>
-                  </div>
-                  <div class="d-flex flex-row align-items-center mb-4">
-                    <i class="fas fa-envelope fa-lg me-3 fa-fw"></i>
-                    <div class="form-outline flex-fill mb-0">
-                      <input type="email" id="form3Example3c5" value={regsiterForm.phone_number} name='phone_number' class="form-control" onChange={handlechange}/>
-                      <label class="form-label" htmlFor="phone_number">Your number</label>
+                  <div className="d-flex flex-row align-items-center mb-4">
+                    <i className="fas fa-user fa-lg me-3 fa-fw"></i>
+                    <div className="form-outline flex-fill mb-0">
+                      <input type="email" id="form3Example1c2" value={registerForm.last_name} name='last_name' onChange={handlechange} className="form-control" />
+                      <label className="form-label" htmlFor="last_name">Last Name</label>
                     </div>
                   </div>
 
-                  <div class="d-flex flex-row align-items-center mb-4">
-                    <i class="fas fa-lock fa-lg me-3 fa-fw"></i>
-                    <div class="form-outline flex-fill mb-0">
-                      <input type="password" id="form3Example4c6" value={regsiterForm.password} name='password' class="form-control" onChange={handlechange}/>
-                      <label class="form-label" htmlFor="password">Password</label>
+                  <div className="d-flex flex-row align-items-center mb-4">
+                    <i className="fas fa-envelope fa-lg me-3 fa-fw"></i>
+                    <div className="form-outline flex-fill mb-0">
+                      <input type="email" id="form3Example3c3" value={registerForm.email} name='email' className="form-control" onChange={handlechange}/>
+                      <label className="form-label" htmlFor="email">Your Email</label>
+                    </div>
+                  </div>
+                  <div className="d-flex flex-row align-items-center mb-4">
+                    <i className="fas fa-envelope fa-lg me-3 fa-fw"></i>
+                    <div className="form-outline flex-fill mb-0">
+                      <input type="email" id="form3Example3c4" value={registerForm.username} name='username' className="form-control" onChange={handlechange}/>
+                      <label className="form-label" htmlFor="username">Your username</label>
+                    </div>
+                  </div>
+                  <div className="d-flex flex-row align-items-center mb-4">
+                    <i className="fas fa-envelope fa-lg me-3 fa-fw"></i>
+                    <div className="form-outline flex-fill mb-0">
+                      <input type="email" id="form3Example3c5" value={registerForm.phone_number} name='phone_number' className="form-control" onChange={handlechange}/>
+                      <label className="form-label" htmlFor="phone_number">Your number</label>
+                    </div>
+                  </div>
+
+                  <div className="d-flex flex-row align-items-center mb-4">
+                    <i className="fas fa-lock fa-lg me-3 fa-fw"></i>
+                    <div className="form-outline flex-fill mb-0">
+                      <input type="password" id="form3Example4c6" autoComplete='password' value={registerForm.password} name='password' className="form-control" onChange={handlechange}/>
+                      <label className="form-label" htmlFor="password">Password</label>
+                    </div>
+                  </div>
+
+                  <div className="d-flex flex-row align-items-center mb-4">
+                    <i className="fas fa-lock fa-lg me-3 fa-fw"></i>
+                    <div className="form-outline flex-fill mb-0">
+                      <input type="password" id="form3Example4c7" autoComplete='password' value={registerForm.repeat_password} name='repeat_password' className="form-control" onChange={handlechange}/>
+                      <label className="form-label" htmlFor="repeat_password"> Repeat Password</label>
                     </div>
                   </div>
 
@@ -115,24 +124,24 @@ export default function Register() {
                     </div>
                   </div> */}
 
-                  <div class="form-check d-flex justify-content-center mb-5">
-                    <input class="form-check-input me-2" type="checkbox" value="" id="form2Example3c" />
-                    <label class="form-check-label" htmlFor="form2Example3">
+                  <div className="form-check d-flex justify-content-center mb-5">
+                    <input className="form-check-input me-2" type="checkbox"  id="form2Example3c" />
+                    <label className="form-check-label" htmlFor="form2Example3">
                       I agree all statements in <a href="#!">Terms of service</a>
                     </label>
                   </div>
 
-                  <div class="d-flex justify-content-center mx-4 mb-3 mb-lg-4">
-                    <button type="submit" onClick={handlesubmit} class="btn btn-primary btn-lg">Register</button>
+                  <div className="d-flex justify-content-center mx-4 mb-3 mb-lg-4">
+                    <button type="submit" onClick={handleSubmit} className="btn btn-primary btn-lg">Register</button>
                   </div>
 
                 </form>
 
               </div>
-              <div class="col-md-10 col-lg-6 col-xl-7 d-flex align-items-center order-1 order-lg-2">
+              <div className="col-md-10 col-lg-6 col-xl-7 d-flex align-items-center order-1 order-lg-2">
 
                 <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-registration/draw1.webp"
-                  class="img-fluid" alt="Sample"/>
+                  className="img-fluid" alt="Sample"/>
 
               </div>
             </div>
